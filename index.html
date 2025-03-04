@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tienda Online</title>
+    <style>
+        /* Reset básico */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Estilo de la barra de navegación */
+        header {
+            background-color: #333;
+            padding: 10px;
+        }
+
+        nav ul {
+            list-style-type: none;
+            text-align: center;
+        }
+
+        nav ul li {
+            display: inline;
+            margin-right: 20px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+        }
+
+        /* Estilo de la sección de bienvenida */
+        .intro {
+            text-align: center;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+
+        .intro h1 {
+            color: #333;
+        }
+
+        .intro p {
+            color: #777;
+        }
+
+        /* Estilo de los productos */
+        .productos {
+            display: flex;
+            justify-content: space-around;
+            padding: 20px;
+        }
+
+        .producto {
+            text-align: center;
+            background-color: #fff;
+            padding: 15px;
+            border: 1px solid #ddd;
+            width: 200px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .producto img {
+            width: 100%;
+            height: auto;
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 10px;
+        }
+
+        .producto h3 {
+            font-size: 18px;
+            color: #333;
+        }
+
+        .producto p {
+            font-size: 16px;
+            color: #555;
+        }
+
+        .producto button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .producto button:hover {
+            background-color: #218838;
+        }
+
+        /* Estilo del carrito */
+        .carrito {
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+
+        .carrito h2 {
+            color: #333;
+        }
+
+        .carrito ul {
+            list-style-type: none;
+        }
+
+        .carrito ul li {
+            padding: 8px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .carrito button {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .carrito button:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+<body>
+    <!-- Barra de navegación -->
+    <header>
+        <nav>
+            <ul>
+                <li><a href="#">Inicio</a></li>
+                <li><a href="#">Productos</a></li>
+                <li><a href="#">Carrito</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Sección de bienvenida -->
+    <section class="intro">
+        <h1>Bienvenidos a nuestra Tienda Online</h1>
+        <p>Explora nuestros productos y agrega al carrito lo que más te guste.</p>
+    </section>
+
+    <!-- Sección de productos -->
+    <section class="productos">
+        <h2>Productos destacados</h2>
+        <div class="producto" id="producto1">
+            <img src="img/img1.jpg" alt="Producto 1">
+            <h3>Producto 1</h3>
+            <p>$10.00</p>
+            <button onclick="agregarCarrito('Producto 1', 10)">Agregar al carrito</button>
+        </div>
+        <div class="producto" id="producto2">
+            <img src="img/img2.jpg" alt="Producto 2">
+            <h3>Producto 2</h3>
+            <p>$20.00</p>
+            <button onclick="agregarCarrito('Producto 2', 20)">Agregar al carrito</button>
+        </div>
+    </section>
+
+    <!-- Sección del carrito -->
+    <section class="carrito">
+        <h2>Tu carrito</h2>
+        <ul id="carrito-lista">
+            <!-- Lista de productos agregados al carrito -->
+        </ul>
+        <p>Total: $<span id="total">0</span></p>
+        <button onclick="vaciarCarrito()">Vaciar carrito</button>
+    </section>
+
+    <script>
+        // Variables para el carrito
+        let carrito = [];
+        let total = 0;
+
+        // Función para agregar un producto al carrito
+        function agregarCarrito(producto, precio) {
+            carrito.push({ producto, precio });
+            total += precio;
+            actualizarCarrito();
+        }
+
+        // Función para actualizar el carrito en la interfaz
+        function actualizarCarrito() {
+            const listaCarrito = document.getElementById('carrito-lista');
+            const totalElement = document.getElementById('total');
+
+            // Limpiar la lista de productos en el carrito
+            listaCarrito.innerHTML = '';
+
+            // Agregar los productos al carrito
+            carrito.forEach(item => {
+                const li = document.createElement('li');
+                li.textContent = `${item.producto} - $${item.precio}`;
+                listaCarrito.appendChild(li);
+            });
+
+            // Actualizar el total
+            totalElement.textContent = total.toFixed(2);
+        }
+
+        // Función para vaciar el carrito
+        function vaciarCarrito() {
+            carrito = [];
+            total = 0;
+            actualizarCarrito();
+        }
+    </script>
+</body>
+</html>
